@@ -1,8 +1,10 @@
 ## Apis
-- _https://api.punkapi.com/v2/beers/1_
+- _https://punkapi.com/documentation/v2_
+- https://api.punkapi.com/v2/beers
 - https://r.mtdv.me/3woW4z1ShK
-- _[https://labs.bible.org/api/?passage=random](https://api.alquran.cloud/v1/ayah/1/editions/quran-uthmani,en.pickthall)https://api.alquran.cloud/v1/ayah/1/editions/quran-uthmani,en.pickthall]_
-
+- _https://alquran.cloud/api_
+- https://api.alquran.cloud/v1/ayah/5000/editions/quran-uthmani,en.pickthall
+  
 ## Functions
 - Search for beer
 - Give random beer
