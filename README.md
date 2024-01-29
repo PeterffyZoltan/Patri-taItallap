@@ -1,7 +1,7 @@
 ## Apis
-- _https://api.punkapi.com/v2/beers/1_
+- _https://punkapi.com/documentation/v2_
 - https://r.mtdv.me/3woW4z1ShK
-- _https://api.alquran.cloud/v1/ayah/117/editions/quran-uthmani,en.pickthall_
+- _https://alquran.cloud/api_
 
 ## Functions
 - Search for beer
