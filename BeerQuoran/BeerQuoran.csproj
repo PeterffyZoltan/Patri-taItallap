@@ -8,7 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="img\border_1.png" />
+    <None Remove="img\border_2.png" />
+    <None Remove="img\border_3.png" />
+    <None Remove="img\home.png" />
+    <None Remove="img\logo_1.png" />
+    <None Remove="img\search.png" />
     <None Remove="img\title-logo.png" />
+    <None Remove="img\travel_sign.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,9 +25,33 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="img\title-logo.png">
+    <Content Include="img\border_1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </Content>
+    <Content Include="img\border_2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="img\border_3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="img\home.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="img\search.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="img\title-logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="img\travel_sign.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="img\logo_1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>
