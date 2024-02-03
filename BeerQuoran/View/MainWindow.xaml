@@ -4,9 +4,183 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BeerQuoran"
+        xmlns:commands="clr-namespace:BeerQuoran.ViewModel"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow"
+        Height="450"
+        Width="800"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        >
+    <WindowChrome.WindowChrome>
+        <WindowChrome GlassFrameThickness="0"
+                      CornerRadius="0"
+                      CaptionHeight="0"
+                      />
+    </WindowChrome.WindowChrome>
 
+    <Window.Resources>
+        <commands:WindowCommands x:Key="windowCommand"/>
+
+        <Style TargetType="{x:Type Button}"
+               x:Key="btn_RedHighlight">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Height="25"
+                                Width="30"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="Transparent"
+                                BorderThickness="0"
+                                Padding="0"
+                                Margin="0 0 0 0"
+                                >
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver"                         
+                         Value="True">
+                    <Setter Property="Background"
+                            Value="#ef233c"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver"
+                         Value="False"
+                         >
+                    <Setter Property="Background"
+                            Value="Transparent"
+                            />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="{x:Type Button}"
+               x:Key="btn_Highlight">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Height="25"
+                                Width="30"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="Transparent"
+                                BorderThickness="0"
+                                Padding="0"
+                                Margin="0 0 0 0"
+                                >
+                            <ContentPresenter HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver"
+                         Value="True"
+                         >
+                    <Setter Property="Background"
+                            Value="#adb5bd"
+                            />
+                </Trigger>
+                <Trigger Property="IsMouseOver"
+                         Value="False"
+                         >
+                    <Setter Property="Background"
+                            Value="Transparent"
+                            />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+    </Window.Resources>
+
+    <Window.DataContext>
+        <StaticResource ResourceKey="windowCommand"/>
+    </Window.DataContext>
+    
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Click" SourceName="btn_minimize">
+            <i:InvokeCommandAction Command="{Binding windowCommand.Minimize}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Click" SourceName="btn_resize">
+            <i:InvokeCommandAction Command="{Binding windowCommand.Resize}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Click" SourceName="btn_close">
+            <i:CallMethodAction MethodName="Close"
+                           TargetObject="{Binding RelativeSource={RelativeSource
+                                                  Mode=FindAncestor,
+                                                  AncestorType=Window}}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+
+    <Grid>
+        <StackPanel x:Name="gr_windowStyle"
+                    Height="25"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal"
+                    Margin="0 0 0 0"
+                    >
+
+            <Button x:Name="btn_minimize"
+                    Style="{StaticResource btn_Highlight}"
+                    >
+                <Button.Content>
+                    <TextBlock Text="_"
+                               VerticalAlignment="Top"
+                               HorizontalAlignment="Center"
+                               Height="25"
+                               Width="5"
+                               />
+                </Button.Content>
+            </Button>
+            <Button x:Name="btn_resize"
+                    Content="[ ]"
+                    Style="{StaticResource btn_Highlight}"
+                    />
+            <Button x:Name="btn_close"                    
+                    Content="X"
+                    Style="{StaticResource btn_RedHighlight}"              
+                    />
+        </StackPanel>
+
+        <Grid x:Name="gr_header"
+              Margin="0 25 0 0"
+              Height="65"
+              VerticalAlignment="Top"
+              Background="Red"
+              >
+            <Border x:Name="br_titleHolder"
+                    Height="65"
+                    Width="150"
+                    HorizontalAlignment="Center"
+                    Padding="0 0 0 0"
+                    BorderThickness="0"
+                    >
+                <TextBlock x:Name="tbl_title"
+                           Text="Brewdog Craft Beer"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Width="135"
+                           Padding="0 0 0 0"
+                           Margin="0 0 0 0"
+                           FontWeight="Bold"
+                           FontSize="14"
+                           />
+            </Border>
+        </Grid>
+
+        <Grid>
+            <Button x:Name="btn_start"
+                    Width="125"
+                    Height="50"
+                    Content="Search"
+                    />
+        </Grid>
     </Grid>
 </Window>
