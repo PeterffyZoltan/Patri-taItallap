@@ -1,6 +1,8 @@
 ﻿using BeerQuoran.ViewModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,12 +23,10 @@ namespace BeerQuoran
     /// </summary>
     public partial class MainWindow : Window
     {
-        public WindowCommands windowCommand { get; } = new WindowCommands();
         public MainWindow()
         {
             InitializeComponent();
-
-            DataContext = this;
+            Debug.WriteLine(DataContext.GetType());
         }
     }
 }

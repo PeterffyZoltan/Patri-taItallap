@@ -104,10 +104,10 @@
     
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Click" SourceName="btn_minimize">
-            <i:InvokeCommandAction Command="{Binding windowCommand.Minimize}" />
+            <i:InvokeCommandAction Command="{Binding Minimize}" />
         </i:EventTrigger>
         <i:EventTrigger EventName="Click" SourceName="btn_resize">
-            <i:InvokeCommandAction Command="{Binding windowCommand.Resize}" />
+            <i:InvokeCommandAction Command="{Binding Resize}" />
         </i:EventTrigger>
         <i:EventTrigger EventName="Click" SourceName="btn_close">
             <i:CallMethodAction MethodName="Close"
@@ -155,22 +155,38 @@
               VerticalAlignment="Top"
               Background="Red"
               >
-            <Border x:Name="br_titleHolder"
-                    Height="65"
-                    Width="150"
-                    HorizontalAlignment="Center"
-                    Padding="0 0 0 0"
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30*"/>
+                <ColumnDefinition Width="40*"/>
+                <ColumnDefinition Width="30*"/>
+            </Grid.ColumnDefinitions>
+
+            <Image x:Name="img_logo"
+                   Grid.Column="0"
+                   HorizontalAlignment="Left"
+                   Source="../img/travel_sign.png"
+                   />
+
+            <!--<Image x:Name="img_title"
+                   Height="{Binding ElementName=gr_header}"
+                   Grid.Column="1"
+                   Source="../img/title-logo.png"
+                   />-->
+            <Border Grid.Column="1"
+                    Background="Transparent"
+                    BorderBrush="Transparent"
                     BorderThickness="0"
-                    >
+                    CornerRadius="0"
+                    Margin="0 0 0 0"
+                    Padding="0">
                 <TextBlock x:Name="tbl_title"
-                           Text="Brewdog Craft Beer"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center"
-                           Width="135"
-                           Padding="0 0 0 0"
-                           Margin="0 0 0 0"
+                           Text="Bredog Craft Beer"
                            FontWeight="Bold"
-                           FontSize="14"
+                           FontStyle="Italic"
+                           FontSize="24"
                            />
             </Border>
         </Grid>

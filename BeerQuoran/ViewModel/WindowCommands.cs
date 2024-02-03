@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -13,32 +8,33 @@ namespace BeerQuoran.ViewModel
 {
     public class WindowCommands : ObservableRecipient
     {
-        Window MainWindow;
+        Window mainWindow;
         public ICommand Minimize { get; }
         public ICommand Resize { get; }
 
         public WindowCommands()
         {
+            mainWindow = App.Current.MainWindow;
             Minimize = new RelayCommand(MinimizeWindow);
             Resize = new RelayCommand(ResizeWindow);
         }
 
         private void ResizeWindow()
         {
-            switch (App.Current.MainWindow.WindowState)
+            switch (mainWindow.WindowState)
             {
                 case WindowState.Maximized:
-                    App.Current.MainWindow.WindowState = WindowState.Normal;
+                    mainWindow.WindowState = WindowState.Normal;
                     break;
                 default:
-                    App.Current.MainWindow.WindowState = WindowState.Maximized;
+                    mainWindow.WindowState = WindowState.Maximized;
                     break;
             }
         }
 
         private void MinimizeWindow()
         {
-            App.Current.MainWindow.WindowState = WindowState.Minimized;
+            mainWindow.WindowState = WindowState.Minimized;
         }
     }
 }
