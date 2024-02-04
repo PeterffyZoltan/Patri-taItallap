@@ -15,6 +15,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Xaml.Behaviors;
+using System.Windows.Media.Animation;
 
 namespace BeerQuoran
 {
@@ -26,7 +28,17 @@ namespace BeerQuoran
         public MainWindow()
         {
             InitializeComponent();
-            Debug.WriteLine(DataContext.GetType());
+            if (DataContext is WindowCommands windowCommand)
+            {
+                windowCommand.SubscribeToEvent(OnStartAnimationRequested);                
+            }
+        }
+
+        private void OnStartAnimationRequested(object sender, EventArgs e)
+        {
+            var storyboard = Resources["FilterHeightAnimation"] as Storyboard;
+            Debug.WriteLine(storyboard?.Name);
+            storyboard?.Begin();            
         }
     }
 }

@@ -148,14 +148,16 @@
                     <Setter Property="Background"
                             Value="#5296a5"
                             />
-                </Trigger>
-                <!--<EventTrigger RoutedEvent="Button.Click">
-                    <EventTrigger.Actions>
-                        <BeginStoryboard Storyboard="{StaticResource filter-expande-anim}"
-                    </EventTrigger.Actions>
-                </EventTrigger>-->
+                </Trigger>                
             </Style.Triggers>
         </Style>
+
+        <Storyboard x:Key="FilterHeightAnimation">
+            <DoubleAnimation Storyboard.TargetProperty="Height"  
+                             Storyboard.TargetName="br_filterHolder"
+                             To="200"
+                             Duration="0:0:0.5"/>
+        </Storyboard>
 
     </Window.Resources>
 
@@ -312,9 +314,16 @@
                         </StackPanel>
                     </Grid>
                 </Border>
-                <StackPanel Grid.Row="1"
-                            Margin="0 7.5 0 0"
-                            >
+                <Border x:Name="br_filterHolder"
+                        Grid.Row="1"
+                        Margin="0 7.5 0 0"
+                        Background="#5296a5"
+                        BorderBrush="Transparent"
+                        BorderThickness="0"
+                        CornerRadius="15"
+                        Height="45"
+                        VerticalAlignment="Top"
+                        >
                     <Button Grid.Row="1"
                             Background="#5296a5"
                             Style="{StaticResource btn_filter}"
@@ -340,8 +349,13 @@
                                            />
                             </StackPanel>
                         </Button.Content>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding ChangeHeight}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </Button>
-                </StackPanel>
+                </Border>
             </Grid>
         </Grid>
     </Grid>
