@@ -152,11 +152,18 @@
             </Style.Triggers>
         </Style>
 
-        <Storyboard x:Key="FilterHeightAnimation">
+        <Storyboard x:Key="FilterHeightExpand">
             <DoubleAnimation Storyboard.TargetProperty="Height"  
                              Storyboard.TargetName="br_filterHolder"
-                             To="200"
-                             Duration="0:0:0.5"/>
+                             To="250"
+                             Duration="0:0:0.35"/>
+        </Storyboard>
+
+        <Storyboard x:Key="FilterHeightCollapse">
+            <DoubleAnimation Storyboard.TargetProperty="Height"  
+                     Storyboard.TargetName="br_filterHolder"
+                     To="45"
+                     Duration="0:0:0.35"/>
         </Storyboard>
 
     </Window.Resources>
@@ -324,37 +331,38 @@
                         Height="45"
                         VerticalAlignment="Top"
                         >
-                    <Button Grid.Row="1"
-                            Background="#5296a5"
-                            Style="{StaticResource btn_filter}"
-                            >
-                        <Button.Content>
-                            <StackPanel Orientation="Horizontal"
-                                        Background="Transparent"
-                                        Style="{StaticResource stc_highlight-content}"
-                                        HorizontalAlignment="Left"
-                                        Width="212.5"
-                                        >
-                                <Image VerticalAlignment="Top"
-                                       Margin="5 0 0 0"
-                                       Source="../img/filter.png"
-                                       Height="35"
-                                       />
-                                <TextBlock Text="Filter"
-                                           VerticalAlignment="Center"
+                    <StackPanel Background="Transparent">
+                        <Button Grid.Row="1"
+                                Background="#5296a5"
+                                Style="{StaticResource btn_filter}"
+                                >
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal"
+                                            Background="Transparent"
+                                            Style="{StaticResource stc_highlight-content}"
+                                            Width="212.5"
+                                            >
+                                    <Image VerticalAlignment="Top"
                                            Margin="5 0 0 0"
-                                           FontSize="16"
-                                           FontWeight="Bold"
-                                           FontStyle="Italic"
+                                           Source="../img/filter.png"
+                                           Height="35"
                                            />
-                            </StackPanel>
-                        </Button.Content>
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="Click">
-                                <i:InvokeCommandAction Command="{Binding ChangeHeight}"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </Button>
+                                    <TextBlock Text="Filter"
+                                               VerticalAlignment="Center"
+                                               Margin="5 0 0 0"
+                                               FontSize="16"
+                                               FontWeight="Bold"
+                                               FontStyle="Italic"
+                                               />
+                                </StackPanel>
+                            </Button.Content>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding ChangeHeight}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Button>
+                    </StackPanel>
                 </Border>
             </Grid>
         </Grid>

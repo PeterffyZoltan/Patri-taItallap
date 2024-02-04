@@ -36,9 +36,20 @@ namespace BeerQuoran
 
         private void OnStartAnimationRequested(object sender, EventArgs e)
         {
-            var storyboard = Resources["FilterHeightAnimation"] as Storyboard;
-            Debug.WriteLine(storyboard?.Name);
-            storyboard?.Begin();            
+            switch (br_filterHolder.Height)
+            {
+                case 45:
+                    var storyboard = Resources["FilterHeightExpand"] as Storyboard;
+                    Debug.WriteLine(storyboard?.Name);
+                    storyboard?.Begin();
+                    break;
+
+                default:
+                    storyboard = Resources["FilterHeightCollapse"] as Storyboard;
+                    Debug.WriteLine(storyboard?.Name);
+                    storyboard?.Begin();
+                    break;
+            }
         }
     }
 }
