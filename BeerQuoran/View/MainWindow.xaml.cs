@@ -28,10 +28,15 @@ namespace BeerQuoran
         public MainWindow()
         {
             InitializeComponent();
+            if (DataContext is WindowCommands windowCommand)
+            {
+                windowCommand.SubscribeToEvent(OnStartAnimationRequested);              
+            }
         }
 
-        private void OnStartFilterAnimationRequested(object sender, EventArgs e)
-        {        
+        private void OnStartAnimationRequested(object sender, EventArgs e)
+        {
+            Debug.WriteLine(sender);            
             switch (br_filterHolder.Height)
             {
                 case 45:
@@ -42,26 +47,6 @@ namespace BeerQuoran
                 default:
                     storyboard = Resources["FilterHeightCollapse"] as Storyboard;
                     storyboard?.Begin();
-                    break;
-            }
-        }
-        private void OnStartSearchBarAnimationRequested(object sender, EventArgs e)
-        {
-            switch (tbx_search.Width)
-            {
-                case 0:
-                    tbx_search.Visibility = Visibility.Visible;
-                    tbl_search.Visibility = Visibility.Collapsed;
-                    var storyboard = Resources["SearchBoxExpand"] as Storyboard;
-                    storyboard?.Begin();
-                    break;
-
-                default:
-                    storyboard = Resources["SearchBoxCollpase"] as Storyboard;
-                    storyboard?.Begin();
-                    
-                    tbx_search.Visibility = Visibility.Collapsed;
-                    tbl_search.Visibility = Visibility.Visible;
                     break;
             }
         }
