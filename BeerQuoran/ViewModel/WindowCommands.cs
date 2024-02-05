@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
 using System.Windows.Shell;
@@ -21,8 +22,6 @@ namespace BeerQuoran.ViewModel
         public ICommand Search { get; }
         public ICommand SearchBarAnimation { get; }
 
-        public event EventHandler StartFilterAnimationRequested;
-
         public WindowCommands()
         {
             mainWindow = App.Current.MainWindow;
@@ -31,7 +30,7 @@ namespace BeerQuoran.ViewModel
             Resize = new RelayCommand(ResizeWindow);
             ChangeHeight = new RelayCommand(ChangeFilterHeight);
             Search = new RelayCommand(ExecuteMakeQuery);
-            SearchBarAnimation = new RelayCommand(ExecuteSearchBarAnimation);
+            //SearchBarAnimation = new RelayCommand(ExecuteSearchBarAnimation);
         }
 
         private void ResizeWindow()
@@ -54,26 +53,12 @@ namespace BeerQuoran.ViewModel
 
         private void ChangeFilterHeight()
         {
-            StartFilterAnimationRequested?.Invoke(this, EventArgs.Empty);
-        }
 
-        public void SubscribeToEvent(EventHandler handler)
-        {
-            StartFilterAnimationRequested += handler;
-        }
-        public void UnsubscribeFromEvent(EventHandler handler)
-        {
-            StartFilterAnimationRequested -= handler;
         }
 
         public void ExecuteMakeQuery()
         {
             VALS.MakeQuery();
-        }
-
-        private void ExecuteSearchBarAnimation()
-        {
-            StartFilterAnimationRequested?.Invoke(this, EventArgs.Empty);
         }
     }
 }
