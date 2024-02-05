@@ -20,35 +20,9 @@ namespace BeerQuoran
     /// </summary>
     public partial class MainWindow : Window
     {
-        Window main;
         public MainWindow()
         {
             InitializeComponent();
-            main = MainWindow.GetWindow(this);
-
-        }
-
-        private void btn_close_Click(object sender, RoutedEventArgs e)
-        {
-            main.Close();
-        }
-
-        private void btn_hide_Click(object sender, RoutedEventArgs e)
-        {
-            main.WindowState = WindowState.Minimized;
-        }
-
-        private void btn_resize_Click(object sender, RoutedEventArgs e)
-        {
-            switch (main.WindowState)
-            {
-                case WindowState.Normal:
-                    main.WindowState = WindowState.Maximized;
-                    break;
-                case WindowState.Maximized:
-                    main.WindowState = WindowState.Normal;
-                    break;
-            }
         }
     }
 }
