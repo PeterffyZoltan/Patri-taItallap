@@ -22,6 +22,7 @@ namespace BeerQuoran.ViewModel
         public ICommand SearchBarAnimation { get; }
 
         public event EventHandler StartFilterAnimationRequested;
+        public event EventHandler StartSearchBoxAnimationRequested;
 
         public WindowCommands()
         {
@@ -54,16 +55,7 @@ namespace BeerQuoran.ViewModel
 
         private void ChangeFilterHeight()
         {
-            StartFilterAnimationRequested?.Invoke(this, EventArgs.Empty);
-        }
-
-        public void SubscribeToEvent(EventHandler handler)
-        {
-            StartFilterAnimationRequested += handler;
-        }
-        public void UnsubscribeFromEvent(EventHandler handler)
-        {
-            StartFilterAnimationRequested -= handler;
+            StartFilterAnimationRequested?.Invoke(this, EventArgs.Empty);            
         }
 
         public void ExecuteMakeQuery()
@@ -73,7 +65,7 @@ namespace BeerQuoran.ViewModel
 
         private void ExecuteSearchBarAnimation()
         {
-            StartFilterAnimationRequested?.Invoke(this, EventArgs.Empty);
+            StartSearchBoxAnimationRequested?.Invoke(this, EventArgs.Empty);
         }
     }
 }

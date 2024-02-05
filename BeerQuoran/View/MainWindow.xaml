@@ -212,7 +212,15 @@
             <DoubleAnimation Storyboard.TargetProperty="Width"
                              Storyboard.TargetName="tbx_search"
                              To="150"
-                             Duration="0:0:0.35"
+                             Duration="0:0:0.25"
+                             />
+        </Storyboard>
+
+        <Storyboard x:Key="SearchBoxCollpase">
+            <DoubleAnimation Storyboard.TargetProperty="Width"
+                             Storyboard.TargetName="tbx_search"
+                             To="0"
+                             Duration="0:0:0.25"
                              />
         </Storyboard>
 
@@ -375,7 +383,7 @@
                                 >
                             <StackPanel Orientation="Horizontal"
                                         Background="Transparent"
-                                        IsHitTestVisible="False"
+                                        IsHitTestVisible="True"
                                         >
                                 <Image VerticalAlignment="Center"
                                    Margin="5 0 0 0"
@@ -383,20 +391,22 @@
                                    Height="35"
                                    />
                                 <TextBox x:Name="tbx_search"
-                                     VerticalAlignment="Center"
-                                     Margin="5 0 0 0"
-                                     FontSize="16"
-                                     Visibility="Collapsed"
-                                     IsHitTestVisible="True"
+                                         VerticalAlignment="Center"
+                                         Margin="5 0 0 0"
+                                         FontSize="16"
+                                         Visibility="Collapsed"
+                                         IsHitTestVisible="True"
+                                         Width="0"
                                      />
-                                <TextBlock Text="Search"
-                                       VerticalAlignment="Center"
-                                       Margin="5 0 0 0"
-                                       FontSize="16"
-                                       FontWeight="Bold"
-                                       FontStyle="Italic"
-                                       IsHitTestVisible="False"
-                                       />
+                                <TextBlock x:Name="tbl_search"
+                                           Text="Search"
+                                           VerticalAlignment="Center"
+                                           Margin="5 0 0 0"
+                                           FontSize="16"
+                                           FontWeight="Bold"
+                                           FontStyle="Italic"
+                                           IsHitTestVisible="False"
+                                           />
                             </StackPanel>
                         </Button>
                     </Grid>
