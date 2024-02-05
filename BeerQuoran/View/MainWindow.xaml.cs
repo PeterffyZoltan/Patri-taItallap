@@ -1,6 +1,8 @@
 ﻿using BeerQuoran.ViewModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +15,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Xaml.Behaviors;
+using System.Windows.Media.Animation;
 
 namespace BeerQuoran
 {
@@ -21,12 +25,29 @@ namespace BeerQuoran
     /// </summary>
     public partial class MainWindow : Window
     {
-        public WindowCommands windowCommand { get; } = new WindowCommands();
         public MainWindow()
         {
             InitializeComponent();
+            if (DataContext is WindowCommands windowCommand)
+            {
+                windowCommand.SubscribeToEvent(OnStartAnimationRequested);                
+            }
+        }
 
-            DataContext = this;
+        private void OnStartAnimationRequested(object sender, EventArgs e)
+        {
+            switch (br_filterHolder.Height)
+            {
+                case 45:
+                    var storyboard = Resources["FilterHeightExpand"] as Storyboard;
+                    storyboard?.Begin();
+                    break;
+
+                default:
+                    storyboard = Resources["FilterHeightCollapse"] as Storyboard;
+                    storyboard?.Begin();
+                    break;
+            }
         }
     }
 }

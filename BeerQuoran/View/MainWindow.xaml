@@ -12,6 +12,7 @@
         Width="800"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
+        Background="#A57548"
         >
     <WindowChrome.WindowChrome>
         <WindowChrome GlassFrameThickness="0"
@@ -24,7 +25,7 @@
         <commands:WindowCommands x:Key="windowCommand"/>
 
         <Style TargetType="{x:Type Button}"
-               x:Key="btn_RedHighlight">
+               x:Key="btn_exit-highlight">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
@@ -59,7 +60,7 @@
         </Style>
 
         <Style TargetType="{x:Type Button}"
-               x:Key="btn_Highlight">
+               x:Key="btn_highlight">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
@@ -72,8 +73,8 @@
                                 Margin="0 0 0 0"
                                 >
                             <ContentPresenter HorizontalAlignment="Center"
-                                  VerticalAlignment="Center"
-                                  />
+                                              VerticalAlignment="Center"
+                                              />
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
@@ -96,18 +97,87 @@
             </Style.Triggers>
         </Style>
 
+        <Style TargetType="StackPanel"
+               x:Key="stc_highlight-content"
+               >
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver"
+                         Value="True"
+                         >
+                    <Setter Property="TextBlock.Foreground"
+                            Value="#fff">
+                    </Setter>
+                </Trigger>
+                <Trigger Property="IsMouseOver"
+                         Value="False"
+                         >
+                    <Setter Property="TextBlock.Foreground"
+                            Value="#ede0d4"
+                            >
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="Button"
+               x:Key="btn_filter"
+               >
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="Transparent"
+                                BorderThickness="0"
+                                CornerRadius="15"
+                                Padding="0"
+                                Height="45"
+                                VerticalAlignment="Top"
+                                >
+                            <ContentPresenter HorizontalAlignment="Left"
+                                              VerticalAlignment="Center"
+                                              Margin="5 0 0 0"
+                                              />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver"
+                         Value="True"
+                         >
+                    <Setter Property="Background"
+                            Value="#5296a5"
+                            />
+                </Trigger>                
+            </Style.Triggers>
+        </Style>
+
+        <Storyboard x:Key="FilterHeightExpand">
+            <DoubleAnimation Storyboard.TargetProperty="Height"  
+                             Storyboard.TargetName="br_filterHolder"
+                             To="250"
+                             Duration="0:0:0.35"/>
+        </Storyboard>
+
+        <Storyboard x:Key="FilterHeightCollapse">
+            <DoubleAnimation Storyboard.TargetProperty="Height"  
+                     Storyboard.TargetName="br_filterHolder"
+                     To="45"
+                     Duration="0:0:0.35"/>
+        </Storyboard>
+
     </Window.Resources>
 
     <Window.DataContext>
         <StaticResource ResourceKey="windowCommand"/>
     </Window.DataContext>
-    
+
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Click" SourceName="btn_minimize">
-            <i:InvokeCommandAction Command="{Binding windowCommand.Minimize}" />
+            <i:InvokeCommandAction Command="{Binding Minimize}" />
         </i:EventTrigger>
         <i:EventTrigger EventName="Click" SourceName="btn_resize">
-            <i:InvokeCommandAction Command="{Binding windowCommand.Resize}" />
+            <i:InvokeCommandAction Command="{Binding Resize}" />
         </i:EventTrigger>
         <i:EventTrigger EventName="Click" SourceName="btn_close">
             <i:CallMethodAction MethodName="Close"
@@ -117,18 +187,25 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
-
     <Grid>
-        <StackPanel x:Name="gr_windowStyle"
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        
+        <StackPanel x:Name="stc_titleBar"
                     Height="25"
                     VerticalAlignment="Top"
                     HorizontalAlignment="Right"
                     Orientation="Horizontal"
                     Margin="0 0 0 0"
+                    Grid.Row="0"
                     >
 
             <Button x:Name="btn_minimize"
-                    Style="{StaticResource btn_Highlight}"
+                    Style="{StaticResource btn_highlight}"
                     >
                 <Button.Content>
                     <TextBlock Text="_"
@@ -141,46 +218,178 @@
             </Button>
             <Button x:Name="btn_resize"
                     Content="[ ]"
-                    Style="{StaticResource btn_Highlight}"
+                    Style="{StaticResource btn_highlight}"
                     />
             <Button x:Name="btn_close"                    
                     Content="X"
-                    Style="{StaticResource btn_RedHighlight}"              
+                    Style="{StaticResource btn_exit-highlight}"              
                     />
         </StackPanel>
 
-        <Grid x:Name="gr_header"
-              Margin="0 25 0 0"
-              Height="65"
-              VerticalAlignment="Top"
-              Background="Red"
-              >
-            <Border x:Name="br_titleHolder"
-                    Height="65"
-                    Width="150"
-                    HorizontalAlignment="Center"
-                    Padding="0 0 0 0"
-                    BorderThickness="0"
-                    >
-                <TextBlock x:Name="tbl_title"
-                           Text="Brewdog Craft Beer"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Center"
-                           Width="135"
-                           Padding="0 0 0 0"
-                           Margin="0 0 0 0"
-                           FontWeight="Bold"
-                           FontSize="14"
-                           />
-            </Border>
-        </Grid>
+        <Grid x:Name="gr_content"
+              Grid.Row="1"
+              Margin="10 10 10 10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30*" MaxWidth="340"/>
+                <ColumnDefinition Width="70*"/>
+            </Grid.ColumnDefinitions>
 
-        <Grid>
-            <Button x:Name="btn_start"
-                    Width="125"
-                    Height="50"
-                    Content="Search"
-                    />
+            <StackPanel Grid.Column="1"
+                        Orientation="Vertical">
+                <Border x:Name="gr_header"
+                        Margin="0 0 0 0"
+                        Height="65"
+                        VerticalAlignment="Top"
+                        Background="#5296a5"
+                        BorderBrush="Transparent"
+                        BorderThickness="0"
+                        CornerRadius="15"
+                        >
+
+                    <Image x:Name="img_title"
+                           Height="65"
+                           HorizontalAlignment="Center"
+                           Source="../img/title-logo.png"
+                           />
+                </Border>
+
+                <Border Margin="0 5 0 0"
+                        Height="120"
+                        Background="#5296a5"
+                        BorderBrush="Transparent"
+                        BorderThickness="1"
+                        CornerRadius="15"
+                        >
+                    <Button Content="Gomb xd"
+                            Command="{Binding Search}">
+                    </Button>
+                </Border>
+            </StackPanel>
+            
+            <Grid x:Name="gr_sideBar"
+                  Grid.Column="0"
+                  Margin="0 0 7.5 0">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30*" MaxHeight="200"/>
+                    <RowDefinition Height="70*"/>
+                </Grid.RowDefinitions>
+
+                <Border x:Name="br_menuHolder"
+                        Grid.Row="0"
+                        BorderBrush="Transparent"
+                        Background="#5296a5"
+                        BorderThickness="0"
+                        CornerRadius="15"
+                        >
+                    <Grid Margin="5 5 5 5"
+                          Background="Transparent"
+                          >
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50*"/>
+                            <RowDefinition Height="50*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Grid.Row="0"
+                                >
+                            <StackPanel Orientation="Horizontal"
+                                        Background="Transparent"
+                                        Style="{StaticResource stc_highlight-content}"
+                                        >
+
+                                <Image VerticalAlignment="Center"
+                                       Margin="5 0 0 0"
+                                       Source="../img/home.png"
+                                       Height="35"
+                                       />
+                                <TextBlock Text="Home"
+                                           VerticalAlignment="Center"
+                                           Margin="5 0 0 0"
+                                           FontSize="16"
+                                           FontWeight="Bold"
+                                           FontStyle="Italic"
+                                           IsHitTestVisible="False"
+                                           />
+                            </StackPanel>                            
+                        </Border>
+                        <StackPanel Orientation="Horizontal"
+                                    Grid.Row="1"
+                                    Background="Transparent"
+                                    Style="{StaticResource stc_highlight-content}"
+                                    >
+                            <Image VerticalAlignment="Center"
+                                   Margin="5 0 0 0"
+                                   Source="../img/search.png"
+                                   Height="35"
+                                   />
+                            <TextBlock Text="Search"
+                                       VerticalAlignment="Center"
+                                       Margin="5 0 0 0"
+                                       FontSize="16"
+                                       FontWeight="Bold"
+                                       FontStyle="Italic"
+                                       IsHitTestVisible="False"
+                                       />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+                <Border x:Name="br_filterHolder"
+                        Grid.Row="1"
+                        Margin="0 7.5 0 0"
+                        Background="#5296a5"
+                        BorderBrush="Transparent"
+                        BorderThickness="0"
+                        CornerRadius="15"
+                        Height="45"
+                        VerticalAlignment="Top"
+                        >
+                    <StackPanel Background="Transparent">
+                        <Button Grid.Row="1"
+                                Background="#5296a5"
+                                Style="{StaticResource btn_filter}"
+                                >
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal"
+                                            Background="Transparent"
+                                            Style="{StaticResource stc_highlight-content}"
+                                            Width="212.5"
+                                            >
+                                    <Image VerticalAlignment="Top"
+                                           Margin="5 0 0 0"
+                                           Source="../img/filter.png"
+                                           Height="35"
+                                           />
+                                    <TextBlock Text="Filter"
+                                               VerticalAlignment="Center"
+                                               Margin="5 0 0 0"
+                                               FontSize="16"
+                                               FontWeight="Bold"
+                                               FontStyle="Italic"
+                                               />
+                                </StackPanel>
+                            </Button.Content>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding ChangeHeight}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Button>
+                        <Button x:Name="btn_1"
+                                Visibility="Collapsed"
+                                />
+                        <Button x:Name="btn_2"
+                                Visibility="Collapsed"
+                                />
+                        <Button x:Name="btn_3"
+                                Visibility="Collapsed"
+                                />
+                        <Button x:Name="btn_4"
+                                Visibility="Collapsed"
+                                />
+                    </StackPanel>
+                </Border>
+            </Grid>
         </Grid>
     </Grid>
 </Window>
