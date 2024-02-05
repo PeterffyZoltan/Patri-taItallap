@@ -30,12 +30,13 @@ namespace BeerQuoran
             InitializeComponent();
             if (DataContext is WindowCommands windowCommand)
             {
-                windowCommand.SubscribeToEvent(OnStartAnimationRequested);                
+                windowCommand.SubscribeToEvent(OnStartAnimationRequested);              
             }
         }
 
         private void OnStartAnimationRequested(object sender, EventArgs e)
         {
+            Debug.WriteLine(sender);            
             switch (br_filterHolder.Height)
             {
                 case 45:
