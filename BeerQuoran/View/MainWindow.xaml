@@ -171,7 +171,7 @@
     <Window.DataContext>
         <StaticResource ResourceKey="windowCommand"/>
     </Window.DataContext>
-    
+
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Click" SourceName="btn_minimize">
             <i:InvokeCommandAction Command="{Binding Minimize}" />
@@ -186,7 +186,6 @@
                                                   AncestorType=Window}}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
-
 
     <Grid>
 
@@ -235,23 +234,37 @@
                 <ColumnDefinition Width="70*"/>
             </Grid.ColumnDefinitions>
 
-            <Border x:Name="gr_header"
-                    Margin="0 0 0 0"
-                    Height="65"
-                    VerticalAlignment="Top"
-                    Grid.Column="1"
-                    Background="#5296a5"
-                    BorderBrush="Transparent"
-                    BorderThickness="1"
-                    CornerRadius="10"
-                    >
+            <StackPanel Grid.Column="1"
+                        Orientation="Vertical">
+                <Border x:Name="gr_header"
+                        Margin="0 0 0 0"
+                        Height="65"
+                        VerticalAlignment="Top"
+                        Background="#5296a5"
+                        BorderBrush="Transparent"
+                        BorderThickness="0"
+                        CornerRadius="15"
+                        >
 
-                <Image x:Name="img_title"
-                       Height="65"
-                       HorizontalAlignment="Center"
-                       Source="../img/title-logo.png"
-                       />
-            </Border>
+                    <Image x:Name="img_title"
+                           Height="65"
+                           HorizontalAlignment="Center"
+                           Source="../img/title-logo.png"
+                           />
+                </Border>
+
+                <Border Margin="0 5 0 0"
+                        Height="120"
+                        Background="#5296a5"
+                        BorderBrush="Transparent"
+                        BorderThickness="1"
+                        CornerRadius="15"
+                        >
+                    <Button Content="Gomb xd"
+                            Command="{Binding Search}">
+                    </Button>
+                </Border>
+            </StackPanel>
             
             <Grid x:Name="gr_sideBar"
                   Grid.Column="0"
@@ -362,6 +375,18 @@
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </Button>
+                        <Button x:Name="btn_1"
+                                Visibility="Collapsed"
+                                />
+                        <Button x:Name="btn_2"
+                                Visibility="Collapsed"
+                                />
+                        <Button x:Name="btn_3"
+                                Visibility="Collapsed"
+                                />
+                        <Button x:Name="btn_4"
+                                Visibility="Collapsed"
+                                />
                     </StackPanel>
                 </Border>
             </Grid>

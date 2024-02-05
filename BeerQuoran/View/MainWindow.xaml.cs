@@ -40,13 +40,11 @@ namespace BeerQuoran
             {
                 case 45:
                     var storyboard = Resources["FilterHeightExpand"] as Storyboard;
-                    Debug.WriteLine(storyboard?.Name);
                     storyboard?.Begin();
                     break;
 
                 default:
                     storyboard = Resources["FilterHeightCollapse"] as Storyboard;
-                    Debug.WriteLine(storyboard?.Name);
                     storyboard?.Begin();
                     break;
             }
