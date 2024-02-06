@@ -34,7 +34,10 @@ namespace BeerQuoran.ViewModel
             {
                 beerWithQuorans.Add(bq);
             }
-            SelectedBeer = bqs[0];
+            if (bqs.Count > 0)
+            {
+                SelectedBeer = bqs[0];
+            }   
 
 
 
