@@ -17,11 +17,14 @@ namespace BeerQuoran.ViewModel
 
         public async void MakeQuery()
         {
-            string localQuery = "/random";
-            if(NameQuery != null && NameQuery.Length > 0)
+            string localQuery = "";
+            if (NameQuery != null && NameQuery.Length > 0)
             {
-                localQuery += "?beer_name=";
+                localQuery += "?per_page=1&beer_name=";
                 localQuery += NameQuery;
+            }
+            else {
+                localQuery += "/random";
             }
             var bqs = await ApiHelper.getBeerQuorans(localQuery);
             beerWithQuorans.Clear();
@@ -31,9 +34,8 @@ namespace BeerQuoran.ViewModel
                 beerWithQuorans.Add(bq);
             }
             SelectedBeer = bqs[0];
-
-
-
+        }
+        
         }
 
         private BeerWithQuoran? selectedBeer;
@@ -57,7 +59,7 @@ namespace BeerQuoran.ViewModel
                 OnPropertyChanged(nameof(NameQuery));
             }
         }
-
+        
         public ObservableCollection<BeerWithQuoran> beerWithQuorans { get; set; } = new();
         public event PropertyChangedEventHandler? PropertyChanged;
 
