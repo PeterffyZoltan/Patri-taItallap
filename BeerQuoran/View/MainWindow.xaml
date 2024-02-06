@@ -148,7 +148,7 @@
                     <Setter Property="Background"
                             Value="#5296a5"
                             />
-                </Trigger>                
+                </Trigger>
             </Style.Triggers>
         </Style>
 
@@ -192,6 +192,32 @@
                             />
                 </Trigger>
             </Style.Triggers>
+        </Style>
+
+        <Style TargetType="Label"
+               x:Key="lbl_beerDetailHeader"
+               >
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Label">
+                        <Border Background="#FCD7AD"
+                                BorderBrush="Transparent"
+                                BorderThickness="0"
+                                CornerRadius="15"
+                                Margin="5 5 5 5"
+                                >
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="FontSize"
+                    Value="18"/>
+            <Setter Property="FontStyle"
+                    Value="Italic"/>
+
         </Style>
 
         <Storyboard x:Key="FilterHeightExpand">
@@ -251,8 +277,8 @@
             <RowDefinition Height="25"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        
-        
+
+
         <StackPanel x:Name="stc_titleBar"
                     Height="25"
                     VerticalAlignment="Top"
@@ -311,19 +337,61 @@
                            />
                 </Border>
 
-                <Border Margin="0 5 0 0"
-                        Height="120"
-                        Background="#5296a5"
-                        BorderBrush="Transparent"
-                        BorderThickness="1"
+                <Border Background="#F6C28B"
                         CornerRadius="15"
-                        >
-                    <Button Content="Gomb xd"
-                            Command="{Binding Search}">
-                    </Button>
+                        Margin="0 7.5 0 0">
+                    <StackPanel Orientation="Vertical"
+                                Margin="5 5 5 5"
+                                Background="#F6C28B"
+                                >
+                        <Label Content="~ Name ~"
+                               Style="{StaticResource lbl_beerDetailHeader}"
+                               />
+                        <TextBlock Text="{Binding VALS.SelectedBeer.beer.name}"
+                                   Width="auto"
+                                   TextWrapping="Wrap"
+                                   Margin="5 0 5 0"
+                                   FontWeight="Bold"
+                                   FontSize="16"
+                                   HorizontalAlignment="Center"
+                                   />
+                        <Label Content="~ Alcohole by Volume ~"
+                               Style="{StaticResource lbl_beerDetailHeader}"
+                               />
+
+                        <TextBlock Text="{Binding VALS.SelectedBeer.beer.abv}"
+                                   Width="auto"
+                                   TextWrapping="Wrap"
+                                   Margin="5 5 5 0"
+                                   FontSize="16"
+                                   HorizontalAlignment="Center"
+                                   />
+                        <Label Content="~ First brewed ~"
+                               Style="{StaticResource lbl_beerDetailHeader}"
+                               />
+
+                        <TextBlock Text="{Binding VALS.SelectedBeer.beer.first_brewed}"
+                                   Width="auto"
+                                   TextWrapping="Wrap"
+                                   Margin="5 5 5 0"
+                                   FontSize="16"
+                                   HorizontalAlignment="Center"
+                                   />
+                        <Label Content="~ Description ~"
+                               Style="{StaticResource lbl_beerDetailHeader}"
+                               />
+
+                        <TextBlock Text="{Binding VALS.SelectedBeer.beer.description}"
+                                   Width="auto"
+                                   TextWrapping="Wrap"
+                                   Margin="5 5 5 0"
+                                   FontSize="16"
+                                   HorizontalAlignment="Center"
+                                   />
+                    </StackPanel>
                 </Border>
             </StackPanel>
-            
+
             <Grid x:Name="gr_sideBar"
                   Grid.Column="0"
                   Margin="0 0 7.5 0">
@@ -373,7 +441,7 @@
                                            IsHitTestVisible="False"
                                            />
                                 </StackPanel>
-                            </Button.Content>                            
+                            </Button.Content>
                         </Button>
                         <Button x:Name="btn_search"
                                 Grid.Row="1"
@@ -397,7 +465,12 @@
                                          Visibility="Collapsed"
                                          IsHitTestVisible="True"
                                          Width="0"
-                                     />
+                                         Text="{Binding VALS.NameQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     >
+                                    <TextBox.InputBindings>
+                                        <KeyBinding Key="Enter" Command="{Binding Search}"/>
+                                    </TextBox.InputBindings>
+                                </TextBox>
                                 <TextBlock x:Name="tbl_search"
                                            Text="Search"
                                            VerticalAlignment="Center"
