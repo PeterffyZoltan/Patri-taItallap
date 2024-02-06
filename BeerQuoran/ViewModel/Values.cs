@@ -17,11 +17,15 @@ namespace BeerQuoran.ViewModel
 
         public async void MakeQuery()
         {
-            string localQuery = "/random";
+            string localQuery = "";
             if(NameQuery != null && NameQuery.Length > 0)
             {
-                localQuery += "?beer_name=";
+                localQuery += "?per_page=1&beer_name=";
                 localQuery += NameQuery;
+            }
+            else
+            {
+                localQuery += "/random";
             }
             var bqs = await ApiHelper.getBeerQuorans(localQuery);
             beerWithQuorans.Clear();
