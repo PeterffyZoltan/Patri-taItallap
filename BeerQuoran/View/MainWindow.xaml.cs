@@ -30,12 +30,38 @@ namespace BeerQuoran
             InitializeComponent();
             if (DataContext is WindowCommands windowCommand)
             {
-                windowCommand.SubscribeToEvent(OnStartAnimationRequested);                
+                windowCommand.StartFilterAnimationRequested += OnStartAnimationRequested;
+                windowCommand.StartSearchBoxAnimationRequested += OnStartSearchBoxAnimRequest;
+            }
+        }
+
+        private void OnStartSearchBoxAnimRequest(object? sender, EventArgs e)
+        {
+            switch (tbx_search.Width)
+            {
+                case 0:
+                    tbx_search.Visibility = Visibility.Visible;
+                    tbl_search.Visibility = Visibility.Collapsed;
+                    var storyboard = Resources["SearchBoxExpand"] as Storyboard;
+                    storyboard?.Begin();
+                    break;
+                default:
+                    storyboard = Resources["SearchBoxCollpase"] as Storyboard;
+                    if (storyboard != null)
+                    {
+                        storyboard.Completed += (sender, e) =>
+                        {
+                            tbx_search.Visibility = Visibility.Collapsed;
+                            tbl_search.Visibility = Visibility.Visible;
+                        };
+                    }
+                    storyboard?.Begin();
+                    break;
             }
         }
 
         private void OnStartAnimationRequested(object sender, EventArgs e)
-        {
+        {          
             switch (br_filterHolder.Height)
             {
                 case 45:

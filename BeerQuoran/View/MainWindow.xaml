@@ -152,6 +152,48 @@
             </Style.Triggers>
         </Style>
 
+        <Style TargetType="Button"
+               x:Key="btn_menu"
+               >
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="Transparent"
+                                BorderThickness="0"
+                                CornerRadius="15"
+                                >
+                            <ContentPresenter HorizontalAlignment="Left"
+                                              VerticalAlignment="Center"
+                                              />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver"
+                         Value="True"
+                         >
+                    <Setter Property="Background"
+                            Value="#5296a5"
+                            />
+                    <Setter Property="TextBlock.Foreground"
+                            Value="#fff"
+                            />
+                    <Setter Property="Cursor"
+                            Value="Hand"
+                            />
+                </Trigger>
+                <Trigger Property="IsMouseOver"
+                         Value="False"
+                         >
+                    <Setter Property="TextBlock.Foreground"
+                            Value="#ede0d4"
+                            />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
         <Storyboard x:Key="FilterHeightExpand">
             <DoubleAnimation Storyboard.TargetProperty="Height"  
                              Storyboard.TargetName="br_filterHolder"
@@ -164,6 +206,22 @@
                      Storyboard.TargetName="br_filterHolder"
                      To="45"
                      Duration="0:0:0.35"/>
+        </Storyboard>
+
+        <Storyboard x:Key="SearchBoxExpand">
+            <DoubleAnimation Storyboard.TargetProperty="Width"
+                             Storyboard.TargetName="tbx_search"
+                             To="150"
+                             Duration="0:0:0.25"
+                             />
+        </Storyboard>
+
+        <Storyboard x:Key="SearchBoxCollpase">
+            <DoubleAnimation Storyboard.TargetProperty="Width"
+                             Storyboard.TargetName="tbx_search"
+                             To="0"
+                             Duration="0:0:0.25"
+                             />
         </Storyboard>
 
     </Window.Resources>
@@ -291,19 +349,22 @@
                             <RowDefinition Height="50*"/>
                         </Grid.RowDefinitions>
 
-                        <Border Grid.Row="0"
+                        <Button Grid.Row="0"
+                                Style="{StaticResource btn_menu}"
+                                Background="#5296a5"
                                 >
-                            <StackPanel Orientation="Horizontal"
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal"
                                         Background="Transparent"
-                                        Style="{StaticResource stc_highlight-content}"
+                                        IsHitTestVisible="False"
                                         >
 
-                                <Image VerticalAlignment="Center"
+                                    <Image VerticalAlignment="Center"
                                        Margin="5 0 0 0"
                                        Source="../img/home.png"
                                        Height="35"
                                        />
-                                <TextBlock Text="Home"
+                                    <TextBlock Text="Home"
                                            VerticalAlignment="Center"
                                            Margin="5 0 0 0"
                                            FontSize="16"
@@ -311,27 +372,43 @@
                                            FontStyle="Italic"
                                            IsHitTestVisible="False"
                                            />
-                            </StackPanel>                            
-                        </Border>
-                        <StackPanel Orientation="Horizontal"
-                                    Grid.Row="1"
-                                    Background="Transparent"
-                                    Style="{StaticResource stc_highlight-content}"
-                                    >
-                            <Image VerticalAlignment="Center"
+                                </StackPanel>
+                            </Button.Content>                            
+                        </Button>
+                        <Button x:Name="btn_search"
+                                Grid.Row="1"
+                                Style="{StaticResource btn_menu}"
+                                Background="#5296a5"
+                                Command="{Binding SearchBarAnimation}"
+                                >
+                            <StackPanel Orientation="Horizontal"
+                                        Background="Transparent"
+                                        IsHitTestVisible="True"
+                                        >
+                                <Image VerticalAlignment="Center"
                                    Margin="5 0 0 0"
                                    Source="../img/search.png"
                                    Height="35"
                                    />
-                            <TextBlock Text="Search"
-                                       VerticalAlignment="Center"
-                                       Margin="5 0 0 0"
-                                       FontSize="16"
-                                       FontWeight="Bold"
-                                       FontStyle="Italic"
-                                       IsHitTestVisible="False"
-                                       />
-                        </StackPanel>
+                                <TextBox x:Name="tbx_search"
+                                         VerticalAlignment="Center"
+                                         Margin="5 0 0 0"
+                                         FontSize="16"
+                                         Visibility="Collapsed"
+                                         IsHitTestVisible="True"
+                                         Width="0"
+                                     />
+                                <TextBlock x:Name="tbl_search"
+                                           Text="Search"
+                                           VerticalAlignment="Center"
+                                           Margin="5 0 0 0"
+                                           FontSize="16"
+                                           FontWeight="Bold"
+                                           FontStyle="Italic"
+                                           IsHitTestVisible="False"
+                                           />
+                            </StackPanel>
+                        </Button>
                     </Grid>
                 </Border>
                 <Border x:Name="br_filterHolder"
@@ -347,13 +424,16 @@
                     <StackPanel Background="Transparent">
                         <Button Grid.Row="1"
                                 Background="#5296a5"
-                                Style="{StaticResource btn_filter}"
+                                Style="{StaticResource btn_menu}"
+                                Height="45"
+                                VerticalAlignment="Top"
                                 >
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal"
                                             Background="Transparent"
-                                            Style="{StaticResource stc_highlight-content}"
                                             Width="212.5"
+                                            IsHitTestVisible="False"
+                                            Margin="5 0 0 0"
                                             >
                                     <Image VerticalAlignment="Top"
                                            Margin="5 0 0 0"
