@@ -34,9 +34,8 @@ namespace BeerQuoran.ViewModel
                 beerWithQuorans.Add(bq);
             }
             SelectedBeer = bqs[0];
-
-
-
+        }
+        
         }
 
         private BeerWithQuoran? selectedBeer;
@@ -60,7 +59,7 @@ namespace BeerQuoran.ViewModel
                 OnPropertyChanged(nameof(NameQuery));
             }
         }
-
+        
         public ObservableCollection<BeerWithQuoran> beerWithQuorans { get; set; } = new();
         public event PropertyChangedEventHandler? PropertyChanged;
 
