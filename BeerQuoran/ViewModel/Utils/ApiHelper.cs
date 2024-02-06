@@ -60,6 +60,7 @@ namespace BeerQuoran.ViewModel.Helpers
                 BeerWithQuoran bq = new BeerWithQuoran();
                 bq.quoran = quoran;
                 bq.beer = beer;
+                bq.QuoranText = quoran.data[1].text;
                 beerWithQuorans.Add(bq);
             }
             return beerWithQuorans;
