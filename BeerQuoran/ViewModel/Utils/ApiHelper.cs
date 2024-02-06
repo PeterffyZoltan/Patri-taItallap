@@ -23,7 +23,7 @@ namespace BeerQuoran.ViewModel.Helpers
             string url = BeerApiUrl + query;
             using (HttpClient client = new())
             {
-                var response = client.GetAsync(url).Result;
+                var response = await client.GetAsync(url);
                 string json = await response.Content.ReadAsStringAsync();
 
                 beers = JsonConvert.DeserializeObject<List<Beer>>(json);
@@ -39,7 +39,7 @@ namespace BeerQuoran.ViewModel.Helpers
             string url = string.Format(QuoranApiUrl, id);
             using (HttpClient client = new())
             {
-                var response = client.GetAsync(url).Result;
+                var response = await client.GetAsync(url);
                 string json = await response.Content.ReadAsStringAsync();
 
                 quoran = JsonConvert.DeserializeObject<Quoran>(json);

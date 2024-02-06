@@ -17,20 +17,48 @@ namespace BeerQuoran.ViewModel
 
         public async void MakeQuery()
         {
-            string query = "/";
-            var bqs = await ApiHelper.getBeerQuorans(query);
+            string localQuery = "/random";
+            if(NameQuery != null && NameQuery.Length > 0)
+            {
+                localQuery += "?beer_name=";
+                localQuery += NameQuery;
+            }
+            var bqs = await ApiHelper.getBeerQuorans(localQuery);
             beerWithQuorans.Clear();
             
             foreach (var bq in bqs)
             {
                 beerWithQuorans.Add(bq);
             }
-
+            SelectedBeer = bqs[0];
 
 
 
         }
-        public ObservableCollection<BeerWithQuoran> beerWithQuorans { get; set; }
+
+        private BeerWithQuoran? selectedBeer;
+        public BeerWithQuoran SelectedBeer
+        {
+            get { return selectedBeer; }
+            set
+            {
+                selectedBeer = value;
+                OnPropertyChanged(nameof(SelectedBeer));
+            }
+        }
+
+        private string? nameQuery;
+        public string NameQuery
+        {
+            get { return nameQuery; }
+            set
+            {
+                nameQuery = value;
+                OnPropertyChanged(nameof(NameQuery));
+            }
+        }
+
+        public ObservableCollection<BeerWithQuoran> beerWithQuorans { get; set; } = new();
         public event PropertyChangedEventHandler? PropertyChanged;
 
         private void OnPropertyChanged(string propertyName)
