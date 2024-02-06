@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace BeerQuoran.Model
 {
     public class BeerWithQuoran {
+        public string QuoranText { get; set; }
 
         public Beer beer { get; set; }
         public Quoran quoran { get; set; }
