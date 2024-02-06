@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -12,10 +11,10 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace BeerQuoran.ViewModel
 {
-    public class WindowCommands : ObservableRecipient, INotifyPropertyChanged
+    public class WindowCommands : ObservableRecipient
     {
         Window mainWindow;
-        public Values VALS { get; set; }
+        Values VALS;
         public ICommand Minimize { get; }
         public ICommand Resize { get; }
         public ICommand ChangeHeight { get; }
