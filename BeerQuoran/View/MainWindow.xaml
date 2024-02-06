@@ -355,7 +355,7 @@
                                    FontSize="16"
                                    HorizontalAlignment="Center"
                                    />
-                        <Label Content="~ Alcohole by Volume ~"
+                        <Label Content="~ Alcohol by Volume (%) ~"
                                Style="{StaticResource lbl_beerDetailHeader}"
                                />
 
